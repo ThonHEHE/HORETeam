@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap" rel="stylesheet">
     <title>About Us</title>
     <style>
         /* Menghilangkan icon dropdown */
@@ -92,24 +95,50 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.9);
-            /* Adjust the opacity as needed */
             z-index: 2;
         }
 
         .content {
             position: absolute;
             top: 50%;
-            left: 50%;
+            left: 40%;
             transform: translate(-50%, -50%);
-            text-align: center;
+            text-align: left;
             z-index: 3;
             color: #fff;
+
         }
 
-        .content h1,
-        h2 {
-            font-size: 60px;
-            font-weight: 600;
+
+
+        .content h2 {
+            font-size: 5em;
+            font-weight: 800;
+            line-height: 1em;
+            text-transform: uppercase;
+            max-width: 100%;
+        }
+
+        .content h3 {
+            font-size: 4em;
+            font-weight: 700;
+            line-height: 1em;
+            text-transform: uppercase;
+        }
+
+        .content p {
+            font-size: 1.1em;
+            margin: 20px 0;
+            font-weight: 400;
+            max-width: 700px;
+        }
+
+        .content button {
+            font-size: 1em;
+            margin-top: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: 0.2s;
         }
 
         .navbar {
@@ -135,16 +164,19 @@
 <body>
 
     <div class="video">
-        <!-- <audio autoplay="" loop="">
+
+        <audio autoplay="" loop="">
             <source src="../img/background/vid-jogja.mp3" type="audio/mp3">
-        </audio> -->
+        </audio>
 
         <video autoplay="" loop="" muted="" class="back-video top-0 start-0 w-100 h-100 dark-overlay"
             style="object-fit: cover; z-index: -1;">
             <source src="../img/background/horejogja.mp4" type="video/mp4">
         </video>
+
     </div>
 
+    <div class="overlay"></div>
     <nav class="navbar navbar-expand-lg navbar-light bg-transparent fixed-top"
         style="background-color: rgb(217, 217, 217);">
         <div class="container">
@@ -190,7 +222,10 @@
 
     <div class="content">
         <!-- <h1>SELAMAT DATANG</h1> -->
-        <h1>Explore Destination in Yogyakarta</h1>
+        <h2>Explore Destination</h2>
+        <h3>in Yogyakarta</h3>
+        <p>your best information to explore destination in Yogyakarta.</p>
+        <button type="button" class="btn btn-outline-light">About Us</button>
     </div>
 
     <footer class="footer py-2 text-center text-body-secondary bg-transparent"
