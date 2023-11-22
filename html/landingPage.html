@@ -9,7 +9,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap" rel="stylesheet">
-    <title>About Us</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap" rel="stylesheet">
+    <title>Landing Page</title>
     <style>
         /* Menghilangkan icon dropdown */
         .navbar .nav-item.dropdown>a::after {
@@ -87,16 +90,19 @@
 
 
 
-        .video:before {
+        .video:before,
+        .video:after {
             content: "";
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.7);
             z-index: 2;
         }
+
+
 
         .content {
             position: absolute;
@@ -146,8 +152,50 @@
             top: 0;
             width: 100%;
             z-index: 4;
+            letter-spacing: 1px;
             /* Ensure the navbar is above the video overlay */
         }
+
+        .navbar-brand {
+            letter-spacing: 2px;
+        }
+
+
+        @media (max-width: 991px) {
+            .navbar {
+                background-color: rgb(217, 217, 217);
+
+
+            }
+
+            .navbar-toggler-icon {
+                background-color: #fff;
+                /* Ganti warna garis hamburger sesuai kebutuhan */
+            }
+
+            .navbar-collapse {
+                border-radius: 10px;
+                border: 1px solid #fff;
+            }
+
+            .navbar-brand {
+                letter-spacing: 0px;
+            }
+
+            .content h2 {
+                font-size: 3em;
+            }
+
+            .content h3 {
+                font-size: 2em;
+            }
+        }
+
+        .navbar-collapse {
+            padding: 1rem;
+        }
+
+
 
         .footer {
             position: fixed;
@@ -176,44 +224,44 @@
 
     </div>
 
-    <div class="overlay"></div>
     <nav class="navbar navbar-expand-lg navbar-light bg-transparent fixed-top"
         style="background-color: rgb(217, 217, 217);">
         <div class="container">
-            <a class="navbar-brand text-white" href="#page-top">
+            <a class="navbar-brand text-white" href="#page-top" style="font-family: 'inter'; ">
                 <img src="../img/logo/jogja-high-resolution-logo-transparent.png" alt="" width="65px" height="70px"
                     class="d-inline-block ">
                 Explore Destination In Yogyakarta
             </a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
-                data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler navbar-toggler-right btn-outline-light" type="button"
+                data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse justify-content-end" id="mainNav">
-                <ul class="navbar-nav">
+            <div class="collapse navbar-collapse justify-content-end bg" id="mainNav">
+                <ul class="navbar-nav" style="font-family: 'inter';">
                     <li class="nav-item dropdown">
-                        <a class="nav-link text-white active" href="#" aria-expanded="false">
+                        <a class="nav-link text-white active" href="landingPage.html" aria-expanded="false">
                             Home
                         </a>
                         <ul class="dropdown-menu bg-transparent">
-                            <li><a class="dropdown-item text-white active" href="#">About us</a></li>
+                            <li><a class="dropdown-item text-white active" href="aboutUs.html">About us</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item text-white" href="#">Help</a></li>
+                            <li><a class="dropdown-item text-white" href="contactUs.html">Contact Us</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#">News</a>
+                        <a class="nav-link text-white" href="news.html">News</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Event</a>
+                        <a class="nav-link text-white" href="event.html">Event</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="destination.html">Destination</a>
                     </li>
                     <li class="nav-item">
-                        <button class="btn btn-outline-light" type="submit">Login</button>
+                        <a class="btn btn-outline-light"  href="login.html">Login</a>
                     </li>
                 </ul>
             </div>
