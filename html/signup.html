@@ -55,17 +55,25 @@
         /* Mengubah warna background navbar */
         .navbar {
             background-color: #d9d9d9;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 4;
+            letter-spacing: 1px;
+            /* Ensure the navbar is above the video overlay */
         }
 
         .navbar-brand {
             letter-spacing: 2px;
         }
 
+        .navbar-collapse {
+            padding: 1rem;
+        }
+
         @media (max-width: 991px) {
             .navbar {
                 background-color: rgb(217, 217, 217);
-
-
             }
 
             .navbar-toggler-icon {
@@ -81,11 +89,6 @@
             .navbar-brand {
                 letter-spacing: 0px;
             }
-
-        }
-
-        .navbar-collapse {
-            padding: 1rem;
         }
 
 
@@ -147,14 +150,6 @@
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
             position: absolute;
             top: 0;
-        }
-
-        .navbar {
-            background-color: rgba(217, 217, 217, 1);
-            transition: background-color 0.3s ease;
-            position: fixed;
-            top: 0;
-            width: 100%;
         }
 
         .content {
