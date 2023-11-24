@@ -1,11 +1,23 @@
+<?php
+session_start();
+include "koneksi.php";
+?>
+
 <html lang="en">
+
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <title>Destination</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap" rel="stylesheet">
+    <title>Sign Up</title>
     <style>
         /* Menghilangkan icon dropdown */
         .navbar .nav-item.dropdown>a::after {
@@ -24,10 +36,64 @@
             background-color: transparent;
         }
 
+        .navbar .nav-item.dropdown .dropdown-menu a {
+            color: black;
+            background-color: transparent;
+        }
+
+        /* Menambahkan border pada dropdown menu */
+        .navbar .nav-item.dropdown .dropdown-menu {
+            border: 1px solid #ddd;
+            /* Sesuaikan dengan warna dan ketebalan border yang diinginkan */
+            border-radius: 0;
+            /* Untuk memastikan border tidak memiliki sudut melengkung, sesuaikan sesuai kebutuhan */
+        }
+
+        /* Menambahkan border pada dropdown menu */
+        .navbar .nav-item.dropdown .dropdown-divider {
+            border: 1px solid #ddd;
+            /* Sesuaikan dengan warna dan ketebalan border yang diinginkan */
+            border-radius: 0;
+            /* Untuk memastikan border tidak memiliki sudut melengkung, sesuaikan sesuai kebutuhan */
+        }
+
+
         /* Mengubah warna background navbar */
         .navbar {
             background-color: #d9d9d9;
         }
+
+        .navbar-brand {
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 991px) {
+            .navbar {
+                background-color: rgb(217, 217, 217);
+
+
+            }
+
+            .navbar-toggler-icon {
+                background-color: #fff;
+                /* Ganti warna garis hamburger sesuai kebutuhan */
+            }
+
+            .navbar-collapse {
+                border-radius: 10px;
+                border: 1px solid #fff;
+            }
+
+            .navbar-brand {
+                letter-spacing: 0px;
+            }
+
+        }
+
+        .navbar-collapse {
+            padding: 1rem;
+        }
+
 
         .background-clip {
             width: 100%;
@@ -99,7 +165,7 @@
 
         .content {
             width: 60%;
-            margin: 160px auto 0;
+            margin: 120px auto 0;
             text-align: center;
         }
 
@@ -116,99 +182,137 @@
             background: rgba(0, 0, 0, 0.3);
             /* Adjust the opacity as needed */
         }
+
+        .content form {
+            color: white;
+            /* Change text color to white */
+            text-align: justify;
+            /* Justify text */
+        }
+
+        .content label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .content h2 {
+            color: white;
+            /* Change heading color to white */
+            text-align: center;
+            /* Center align heading */
+        }
+
+        /* Add these styles for the Login button */
+        .content a {
+            display: block;
+            margin: 0 auto;
+            /* Center align the button */
+            width: 100%;
+            /* Set the width to 100% */
+        }
     </style>
 
 </head>
 
 <body onload="slider()">
+    <?php
+    if(isset($_POST['username'])) {
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $password = md5($_POST['password']);
 
-
-
-
-
-
-
+        $query = mysqli_query($koneksi,"INSERT INTO user(username,email,password) values ('$username','$email','$password')");
+        if ($query) {
+            echo  '<script>alert("Berhasil");
+            location.href="login.php";</script>';
+        }else{ 
+            echo '<script>alert("Gagal")</script>';
+        }
+    }
+    ?>
     <div class="banner">
         <div class="slider">
             <img src="../img/background/slide1.JPEG" id="slideImg">
         </div>
         <div class="overlay">
 
-            <div class="navbar navbar-expand-lg navbar-light bg-transparent fixed-top"
+            <nav class="navbar navbar-expand-lg navbar-light bg-transparent fixed-top"
                 style="background-color: rgb(217, 217, 217);">
                 <div class="container">
-                    <a class="navbar-brand text-white" href="#page-top">
-                        <img src="../img/logo/jogja-high-resolution-logo-transparent.png" alt="" width="45px" height="50px"
-                            class="d-inline-block ">
+                    <a class="navbar-brand text-white" href="#page-top" style="font-family: 'inter'; ">
+                        <img src="../img/logo/jogja-high-resolution-logo-transparent.png" alt="" width="65px"
+                            height="70px" class="d-inline-block ">
                         Explore Destination In Yogyakarta
                     </a>
-                    <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false"
-                        aria-label="Toggle navigation">
+                    <button class="navbar-toggler navbar-toggler-right btn-outline-light" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav"
+                        aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse justify-content-end" id="mainNav">
-                        <ul class="navbar-nav">
+                    <div class="collapse navbar-collapse justify-content-end bg" id="mainNav">
+                        <ul class="navbar-nav" style="font-family: 'inter';">
                             <li class="nav-item dropdown">
-                                <a class="nav-link text-white" href="landingPage.html" aria-expanded="false">
+                                <a class="nav-link text-white active" href="landingPage.html" aria-expanded="false">
                                     Home
                                 </a>
                                 <ul class="dropdown-menu bg-transparent">
-                                    <li><a class="dropdown-item text-white" href="aboutUs.html">About us</a></li>
+                                    <li><a class="dropdown-item text-white active" href="aboutUs.html">About us</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <li><a class="dropdown-item text-white" href="#">Help</a></li>
+                                    <li><a class="dropdown-item text-white" href="contactUs.html">Contact Us</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="#">News</a>
+                                <a class="nav-link text-white" href="news.html">News</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="#">Event</a>
+                                <a class="nav-link text-white" href="event.html">Event</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white active" href="#">Destination</a>
+                                <a class="nav-link text-white" href="destination.html">Destination</a>
                             </li>
                             <li class="nav-item">
-                                <button class="btn btn-outline-light" type="submit">Login</button>
+                                <a class="btn btn-outline-light" href="login.php">Login</a>
                             </li>
                         </ul>
                     </div>
                 </div>
-            </div>
+            </nav>
 
             <div class="content">
                 <div class="row">
-                    <div class="col">
-                        <div class="card h-100 bg-transparent border-0 ">
-                            <img src="../img/destination/nature.JPEG" class="card-img-top " alt="...">
-                            <div class="card-body">
-                                <div class="d-grid gap-2">
-                                    <a href="nature.html" class="btn btn-outline-light btn-lg">NATURE</a>
-                                </div>
+                    <div class="col-md-6 offset-md-3 mt-5 bg-light bg-opacity-10 border border-light-subtle shadow"
+                        style="border-radius: 20px;">
+                        <br>
+                        <h2>Sign up</h2>
+                        <form method="post">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name:</label>
+                                <input type="text" class="form-control" id="username" name="username" required>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100 bg-transparent border-0">
-                            <img src="../img/destination/heritage.JPEG" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <div class="d-grid gap-2">
-                                    <a href="heritage.html" class="btn btn-outline-light btn-lg">HERITAGE</a>
-                                </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email:</label>
+                                <input type="Email" class="form-control" id="email" name="email" required>
+
                             </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100 bg-transparent border-0">
-                            <img src="../img/destination/religi.JPEG" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <div class="d-grid gap-2">
-                                    <a href="religi.html" class="btn btn-outline-light btn-lg">RELIGI</a>
-                                </div>
+                            <div class="mb-3">
+                                <label for="Password" class="form-label">Password</label>
+                                <input type="Password" class="form-control" id="password" name="password" required>
+
                             </div>
-                        </div>
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                <input type="Password" class="form-control" id="confirmPassword" name="confirmPassword"
+                                    required>
+
+                            </div>
+
+                            <button type="submit" class="btn btn-success">Register</button>
+
+
+                        </form>
+
                     </div>
                 </div>
             </div>
