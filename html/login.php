@@ -1,3 +1,10 @@
+<?php
+session_start();
+include "koneksi.php";
+
+?>
+
+
 <html lang="en">
 
 <head>
@@ -5,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <title>Destination</title>
+    <title>Login</title>
     <style>
         /* Menghilangkan icon dropdown */
         .navbar .nav-item.dropdown>a::after {
@@ -116,18 +123,59 @@
             background: rgba(0, 0, 0, 0.3);
             /* Adjust the opacity as needed */
         }
+        .content form {
+            color: white; /* Change text color to white */
+            text-align: justify; /* Justify text */
+        }
+    
+        .content label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .content h2 {
+            color: white; /* Change heading color to white */
+            text-align: center; /* Center align heading */
+        }
+    
+        /* Add these styles for the Login button */
+        .content button {
+            display: block;
+            margin: 0 auto; /* Center align the button */
+            width: 100%; /* Set the width to 100% */
+        }
+        
     </style>
 
 </head>
 
 <body onload="slider()">
-
-
-
-
-
-
-
+<?php
+    if (isset($_POST['username']) && isset($_POST['password'])) {
+        $username = $_POST['username'];
+        $password = md5($_POST['password']);
+    
+        $query = mysqli_query($koneksi, "SELECT * FROM user WHERE username='$username' AND password='$password'");
+    
+        if (mysqli_num_rows($query) != 0) {
+            $row = mysqli_fetch_assoc($query);
+    
+            // Setel peran pengguna dalam sesi
+            $_SESSION['role'] = $row['role'];
+    
+            if ($row['role'] == 'admin') {
+                // Alihkan admin ke homeAdmin.php
+                header("Location: homeAdmin.php");
+                exit();
+            } elseif ($row['role'] == 'user') {
+                // Alihkan pengguna ke homeUser.php
+                header("Location: homeUser.php");
+                exit();
+            }
+        } else {
+            echo '<script>alert("Username/password salah.");</script>';
+        }
+    }
+    ?>
     <div class="banner">
         <div class="slider">
             <img src="../img/background/slide1.JPEG" id="slideImg">
@@ -158,20 +206,20 @@
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <li><a class="dropdown-item text-white" href="#">Help</a></li>
+                                    <li><a class="dropdown-item text-white" href="contactUs.html">Contact Us</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="#">News</a>
+                                <a class="nav-link text-white" href="news.html">News</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="#">Event</a>
+                                <a class="nav-link text-white" href="event.html">Event</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white active" href="#">Destination</a>
+                                <a class="nav-link text-white active" href="destination.html">Destination</a>
                             </li>
                             <li class="nav-item">
-                                <button class="btn btn-outline-light" type="submit">Login</button>
+                                <a class="btn btn-outline-light" type="submit" href="login.html">Login</a>
                             </li>
                         </ul>
                     </div>
@@ -179,36 +227,22 @@
             </div>
 
             <div class="content">
-                <div class="row">
-                    <div class="col">
-                        <div class="card h-100 bg-transparent border-0 ">
-                            <img src="../img/destination/nature.JPEG" class="card-img-top " alt="...">
-                            <div class="card-body">
-                                <div class="d-grid gap-2">
-                                    <a href="nature.html" class="btn btn-outline-light btn-lg">NATURE</a>
-                                </div>
+                <div class="row ">
+                    <div class="col-md-6 offset-md-3 mt-5 bg-light bg-opacity-10 border border-light-subtle shadow" style="border-radius: 20px;">
+                        <br><h2>Sign In</h2>
+                        <form method="post">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username:</label>
+                                <input type="text" class="form-control" id="username" name="username" >
                             </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100 bg-transparent border-0">
-                            <img src="../img/destination/heritage.JPEG" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <div class="d-grid gap-2">
-                                    <a href="heritage.html" class="btn btn-outline-light btn-lg">HERITAGE</a>
-                                </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password:</label>
+                                <input type="password" class="form-control" id="password" name="password" >
                             </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100 bg-transparent border-0">
-                            <img src="../img/destination/religi.JPEG" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <div class="d-grid gap-2">
-                                    <a href="religi.html" class="btn btn-outline-light btn-lg">RELIGI</a>
-                                </div>
-                            </div>
-                        </div>
+                            <button type="submit" class="btn btn-success" name="loginbtn">Login</button>
+            
+                        </form>
+                        <a class="text-light" href="signup.php">Sign Up?</a><br><br>
                     </div>
                 </div>
             </div>
