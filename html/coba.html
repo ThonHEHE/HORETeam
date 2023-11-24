@@ -5,7 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <title>Sign Up</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap" rel="stylesheet">
+    <title>Heritage</title>
     <style>
         /* Menghilangkan icon dropdown */
         .navbar .nav-item.dropdown>a::after {
@@ -24,9 +30,66 @@
             background-color: transparent;
         }
 
+        .navbar .nav-item.dropdown .dropdown-menu a {
+            color: black;
+            background-color: transparent;
+        }
+
+        /* Menambahkan border pada dropdown menu */
+        .navbar .nav-item.dropdown .dropdown-menu {
+            border: 1px solid #ddd;
+            /* Sesuaikan dengan warna dan ketebalan border yang diinginkan */
+            border-radius: 0;
+            /* Untuk memastikan border tidak memiliki sudut melengkung, sesuaikan sesuai kebutuhan */
+        }
+
+        /* Menambahkan border pada dropdown menu */
+        .navbar .nav-item.dropdown .dropdown-divider {
+            border: 1px solid #ddd;
+            /* Sesuaikan dengan warna dan ketebalan border yang diinginkan */
+            border-radius: 0;
+            /* Untuk memastikan border tidak memiliki sudut melengkung, sesuaikan sesuai kebutuhan */
+        }
+
+
         /* Mengubah warna background navbar */
         .navbar {
             background-color: #d9d9d9;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 4;
+            letter-spacing: 1px;
+            /* Ensure the navbar is above the video overlay */
+        }
+
+        .navbar-brand {
+            letter-spacing: 2px;
+        }
+
+        .navbar-collapse {
+            padding: 1rem;
+        }
+
+        @media (max-width: 991px) {
+            .navbar {
+                background-color: rgb(217, 217, 217);
+            }
+
+            .navbar-toggler-icon {
+                background-color: #fff;
+                /* Ganti warna garis hamburger sesuai kebutuhan */
+            }
+
+            .navbar-collapse {
+                border-radius: 10px;
+                border: 1px solid #fff;
+                background-color: black;
+            }
+
+            .navbar-brand {
+                letter-spacing: 0px;
+            }
         }
 
         .background-clip {
@@ -35,12 +98,12 @@
         }
 
 
-        body {}
+        body {
 
-        .video h2,
-        h3 {
-            text-align: center;
+            background-color: black;
         }
+
+
 
 
         .banner {
@@ -84,24 +147,99 @@
         .overlay {
             width: 100%;
             height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+            background: rgba(0, 0, 0, 0.9);
             position: absolute;
             top: 0;
         }
 
-        .navbar {
-            background-color: rgba(217, 217, 217, 1);
-            transition: background-color 0.3s ease;
-            position: fixed;
-            top: 0;
-            width: 100%;
-        }
-
         .content {
             width: 60%;
-            margin: 120px auto 0;
-            text-align: center;
+            margin: 390px auto 0;
+            position: relative;
+            top: 50%;
+            left: 20%;
+            transform: translate(-50%, -50%);
+            text-align: left;
+            z-index: 3;
+            color: #fff;
         }
+
+        .contents {
+            width: 60%;
+            margin: 390px auto 0;
+            position: relative;
+            top: 50%;
+            left: 20%;
+            transform: translate(-50%, -50%);
+            text-align: left;
+            z-index: 3;
+            color: #fff;
+        }
+
+        .content h2 {
+            font-size: 5em;
+            font-weight: 800;
+            line-height: 1em;
+            text-transform: uppercase;
+            max-width: 100%;
+        }
+
+        .content h3 {
+            font-size: 4em;
+            font-weight: 700;
+            line-height: 1em;
+            text-transform: uppercase;
+        }
+
+        .content p {
+            font-size: 1.1em;
+            margin: 20px 0;
+            font-weight: 400;
+            max-width: 700px;
+        }
+
+        .content button {
+            font-size: 1em;
+            margin-top: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: 0.2s;
+        }
+
+        .contents h2 {
+            font-size: 5em;
+            font-weight: 800;
+            line-height: 1em;
+            text-transform: uppercase;
+            max-width: 100%;
+        }
+
+        .contents h3 {
+            font-size: 4em;
+            font-weight: 700;
+            line-height: 1em;
+            text-transform: uppercase;
+        }
+
+        .contents p {
+            font-size: 1.1em;
+            margin: 20px 0;
+            font-weight: 400;
+            max-width: 700px;
+        }
+
+        .contents button {
+            font-size: 1em;
+            margin-top: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: 0.2s;
+        }
+
+        .carouselExampleIndicators {
+            position: fixed;
+        }
+
 
         .footer {
             background-color: rgba(217, 217, 217, 0.5);
@@ -113,37 +251,27 @@
         }
 
         .dark-overlay {
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.6);
             /* Adjust the opacity as needed */
         }
-        .content form {
-            color: white; /* Change text color to white */
-            text-align: justify; /* Justify text */
+
+        .card-img-top {
+            height: 250px;
+            /* Adjust the height as needed */
+            object-fit: cover;
+            /* This property ensures that the image covers the entire space even if its aspect ratio is different */
         }
-    
-        .content label {
-            display: block;
-            margin-bottom: 0.5rem;
+
+        .card {
+            /* Optional: Add a fixed height to the cards for consistency */
+            height: 400px;
+            /* Adjust the height as needed */
         }
-        .content h2 {
-            color: white; /* Change heading color to white */
-            text-align: center; /* Center align heading */
-        }
-    
-        /* Add these styles for the Login button */
-        .content button {
-            display: block;
-            margin: 0 auto; /* Center align the button */
-            background-color: green; /* Change button background color to green */
-            color: white; /* Change button text color to white */
-            width: 100%; /* Set the width to 100% */
-        }
-        
     </style>
 
 </head>
 
-<body onload="slider()">
+<body>
 
 
 
@@ -151,89 +279,109 @@
 
 
 
-    <div class="banner">
-        <div class="slider">
-            <img src="../img/background/slide1.JPEG" id="slideImg">
-        </div>
-        <div class="overlay">
+    <main>
+        <div class="banner">
+            <div class="video">
 
-            <div class="navbar navbar-expand-lg navbar-light bg-transparent fixed-top"
-                style="background-color: rgb(217, 217, 217);">
-                <div class="container">
-                    <a class="navbar-brand text-white" href="#page-top">
-                        <img src="../img/logo/jogja-high-resolution-logo-transparent.png" alt="" width="45px" height="50px"
-                            class="d-inline-block ">
-                        Explore Destination In Yogyakarta
-                    </a>
-                    <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse justify-content-end" id="mainNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link text-white" href="#" aria-expanded="false">
-                                    Home
-                                </a>
-                                <ul class="dropdown-menu bg-transparent">
-                                    <li><a class="dropdown-item text-white" href="aboutUs.html">About us</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item text-white" href="#">Help</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="#">News</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="#">Event</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white active" href="#">Destination</a>
-                            </li>
-                            <li class="nav-item">
-                                <button class="btn btn-outline-light" type="submit">Login</button>
-                            </li>
-                        </ul>
+                <!-- <audio autoplay="" loop="">
+                    <source src="../img/background/vid-jogja.mp3" type="audio/mp3">
+                </audio> -->
+
+                <video autoplay="" loop="" muted="" class="back-video top-0 start-0 w-100 h-100 dark-overlay"
+                    style="object-fit: cover; z-index: -1;">
+                    <source src="../img/background/horejogja.mp4" type="video/mp4">
+                </video>
+
+            </div>
+            <div class="overlay">
+
+                <nav class="navbar navbar-expand-lg navbar-light bg-transparent fixed-top"
+                    style="background-color: rgb(217, 217, 217);">
+                    <div class="container">
+                        <a class="navbar-brand text-white" href="#page-top" style="font-family: 'inter'; ">
+                            <img src="../img/logo/jogja-high-resolution-logo-transparent.png" alt="" width="65px"
+                                height="70px" class="d-inline-block ">
+                            Explore Destination In Yogyakarta
+                        </a>
+                        <button class="navbar-toggler navbar-toggler-right bg-light" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse justify-content-end bg" id="mainNav">
+                            <ul class="navbar-nav" style="font-family: 'inter';">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link text-white active" href="landingPage.html" aria-expanded="false">
+                                        Home
+                                    </a>
+                                    <ul class="dropdown-menu bg-transparent">
+                                        <li><a class="dropdown-item text-white active" href="javascript:void(0);"
+                                                onclick="navigateToAboutUs()">About us</a></li>
+
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item text-white" href="contactUs.html">Contact Us</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="news.html">News</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="event.html">Event</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="destination.html">Destination</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="btn btn-outline-light" href="login.html">Login</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+                <div id="carouselExampleIndicators" class="carousel slide">
+                    <!-- <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                            class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                            aria-label="Slide 2"></button>
+                    </div> -->
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="content">
+                                <!-- <h1>SELAMAT DATANG</h1> -->
+                                <h2>Explore Destination</h2>
+                                <h3>in Yogyakarta</h3>
+                                <p>your best information to explore destination in Yogyakarta.</p>
+                                <button type="button" class="btn btn-outline-light" onclick="nextSlide()">About
+                                    Us</button>
+
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="contents">
+                                <p>Yogyakarta memliki banyak Destinasi Pariwisata dan memiliki daya tarik yang tinggi namun belum dikenal secara baik karena belum optimalnya promosi 
+                                yang dilakukan oleh Pemerintah untuk terus memperkenalkan destinasi yang ada. 
+                                Dengan pemanfaatan Website ini, sebagai Sistem Informasi Destinasi Pariwista Yogyakarta dapat digunakan sebagai upaya untuk memperkenalkan keberadaan semua Destinasi yang menyebar di Kabupaten yang ada di Yogyakarta sehingga dapat dikenal oleh wisatawan. 
+                                Website ini kami buat dengan Visi dan Misi sebagai berikut</p><
+                                
+                                <!-- <button type="button" class="btn btn-outline-light">About Us</button> -->
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="content">
-                <div class="row">
-                    <div class="col-md-6 offset-md-3 mt-5">
-                        <h2>Sign up</h2>
-                        <form>
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Name:</label>
-                                <input type="text" class="form-control" id="username" name="username" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">email:</label>
-                                <input type="Email" class="form-control" id="email" name="email" required>
 
-                            </div>
-                            <div class="mb-3">
-                                <label for="Password" class="form-label">Password</label>
-                                <input type="Password" class="form-control" id="password" name="Password" required>
 
-                            </div>
-                            <div class="mb-3">
-                                <label for="confirmPassword" class="form-label">Confirm Password</label>
-                                <input type="Password" class="form-control" id="password" name="confirmPassword" required>
 
-                            </div>
-                            
-                            <button type="submit" class="btn btn-primary">Login</button>
-            
-                        </form>
-                    </div>
-                </div>
             </div>
         </div>
-    </div>
+    </main>
+
+
 
 
     <!-- <main>
@@ -276,6 +424,22 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
+
+    <script>
+        function navigateToAboutUs() {
+            var myCarousel = new bootstrap.Carousel(document.getElementById('carouselExampleIndicators'));
+            myCarousel.to(
+            1); // Ganti angka ini sesuai dengan indeks slide yang ingin ditampilkan (indeks dimulai dari 0)
+        }
+    </script>
+
+
+    <script>
+        function nextSlide() {
+            var myCarousel = new bootstrap.Carousel(document.getElementById('carouselExampleIndicators'));
+            myCarousel.next();
+        }
     </script>
 
     <script>
