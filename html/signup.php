@@ -216,19 +216,25 @@ include "koneksi.php";
 
 <body onload="slider()">
     <?php
-    if(isset($_POST['username'])) {
-        $username = $_POST['username'];
-        $email = $_POST['email'];
-        $password = md5($_POST['password']);
+   if(isset($_POST['username'])) {
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = md5($_POST['password']);
+    $confirmPassword = md5($_POST['confirmPassword']);
 
-        $query = mysqli_query($koneksi,"INSERT INTO user(username,email,password) values ('$username','$email','$password')");
+    // Check if passwords match
+    if ($password !== $confirmPassword) {
+        echo '<script>alert("Password and Confirm Password do not match")</script>';
+    } else {
+        // Passwords match, proceed with database insertion
+        $query = mysqli_query($koneksi, "INSERT INTO user(username,email,password) VALUES ('$username','$email','$password')");
         if ($query) {
-            echo  '<script>alert("Berhasil");
-            location.href="login.php";</script>';
-        }else{ 
+            echo '<script>alert("Berhasil"); location.href="login.php";</script>';
+        } else { 
             echo '<script>alert("Gagal")</script>';
         }
     }
+}
     ?>
     <div class="banner">
         <div class="slider">
