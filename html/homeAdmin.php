@@ -4,6 +4,8 @@ session_start();
 
 // Periksa apakah pengguna sudah login dan memiliki peran admin
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    session_unset();
+    session_destroy();
     // Jika tidak, redirect ke halaman login atau halaman lain yang sesuai
     header("Location: login.php"); // Gantilah dengan halaman login yang benar
     exit();
