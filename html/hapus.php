@@ -8,7 +8,7 @@ $id = $_GET['id'];
 $query_foto = "SELECT foto FROM wisata WHERE id=$id";
 $result_foto = mysqli_query($koneksi, $query_foto);
 $row_foto = mysqli_fetch_assoc($result_foto);
-$filename = 'uploads/' . $row_foto['foto'];
+$filename = '../img/' . $row_foto['foto'];
 
 // Hapus foto dari folder uploads
 unlink($filename);

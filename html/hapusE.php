@@ -3,29 +3,23 @@
 
 include 'koneksi.php';
 
-session_start();
+$id = $_GET['id'];
 
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: login.php");
+$query_foto = "SELECT foto FROM event WHERE id=$id";
+$result_foto = mysqli_query($koneksi, $query_foto);
+$row_foto = mysqli_fetch_assoc($result_foto);
+$filename = '../img/' . $row_foto['foto'];
+
+// Hapus foto dari folder uploads
+unlink($filename);
+
+// Hapus data dari tabel wisata
+$query = "DELETE FROM event WHERE id=$id";
+
+if (mysqli_query($koneksi, $query)) {
+    header('Location: homeEvent.php');
     exit();
+} else {
+    echo 'Error: ' . mysqli_error($koneksi);
 }
-
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-
-    // Delete the event with the specified ID from the database
-    $query = "DELETE FROM event WHERE id = $id";
-    $result = mysqli_query($koneksi, $query);
-
-    if (!$result) {
-        // Handle the error or redirect as needed
-        die("Error: " . mysqli_error($koneksi));
-    }
-}
-
-// Redirect to the appropriate page after deleting
-header("Location: homeAdmin.php");
-exit();
-
-// Close the database connection
 ?>
