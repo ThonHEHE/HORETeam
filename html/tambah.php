@@ -56,7 +56,7 @@ if ($uploadOk == 0) {
 }
 move_uploaded_file($foto_temp, $foto_path);
 
-    $query = "INSERT INTO wisata (nama, deskripsi, harga_tiket, jam_operasional, fasilitas, lokasi, id_kategori, foto, status) VALUES ('$nama', '$deskripsi', $harga_tiket, '$jam_operasional', '$fasilitas', '$lokasi', $id_kategori, '$foto', '$status')";
+    $query = "INSERT INTO wisata (nama, deskripsi, harga_tiket, jam_operasional, fasilitas, lokasi, id_kategori, foto, status) VALUES ('$nama', '$deskripsi', '$harga_tiket', '$jam_operasional', '$fasilitas', '$lokasi', $id_kategori, '$foto', '$status')";
     
     if (mysqli_query($koneksi, $query)) {
         header('Location: homeAdmin.php');
@@ -95,7 +95,7 @@ $result_kategori = mysqli_query($koneksi, $query_kategori);
             </div>
             <div class="form-group">
                 <label for="harga_tiket">Harga Tiket</label>
-                <input type="number" class="form-control" name="harga_tiket" required>
+                <input type="text" class="form-control" name="harga_tiket" required>
             </div>
             <div class="form-group">
                 <label for="jam_operasional">Jam Operasional</label>
