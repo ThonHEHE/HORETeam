@@ -160,15 +160,14 @@ include "koneksi.php";
         if (mysqli_num_rows($query) != 0) {
             $row = mysqli_fetch_assoc($query);
     
-            // Setel peran pengguna dalam sesi
+            // Set user details in the session
+            $_SESSION['user'] = $row;
             $_SESSION['role'] = $row['role'];
     
             if ($row['role'] == 'admin') {
-                // Alihkan admin ke homeAdmin.php
                 header("Location: homeAdmin.php");
                 exit();
             } elseif ($row['role'] == 'user') {
-                // Alihkan pengguna ke homeUser.php
                 header("Location: homeUser.php");
                 exit();
             }
