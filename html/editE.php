@@ -1,4 +1,6 @@
 <?php
+// editE.php
+
 include 'koneksi.php';
 
 session_start();
@@ -12,67 +14,66 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     exit();
 }
 
-// Check if the 'id' parameter is set in the URL
-if (!isset($_GET['id'])) {
-    // Redirect to an appropriate page if 'id' is not provided
-    header("Location: homeEvent.php");
-    exit();
-}
+// Inisialisasi variabel
+$id = $_GET['id'];
+$error = '';
 
-// Get the event ID from the URL
-$event_id = $_GET['id'];
-
-// Retrieve the event data based on the provided ID
-$query = "SELECT event.*, kategori_event.nama_kategori 
-          FROM event
-          LEFT JOIN kategori_event ON event.id_kategori = kategori_event.id
-          WHERE event.id = $event_id";
-$result = mysqli_query($koneksi, $query);
-
-// Check if the event with the provided ID exists
-if (!$result || mysqli_num_rows($result) == 0) {
-    // Redirect to an appropriate page if the event is not found
-    header("Location: homeEvent.php");
-    exit();
-}
-
-// Fetch event data
-$row = mysqli_fetch_assoc($result);
-
-// Fetch categories for the dropdown
-$kategori_query = "SELECT * FROM kategori_event";
-$kategori_result = mysqli_query($koneksi, $kategori_query);
-
-// Handle form submission
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Extract data from the form
+// Proses form submission
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Validasi form data (sesuaikan dengan kebutuhan)
     $nama = $_POST['nama'];
     $deskripsi = $_POST['deskripsi'];
+    $detail = $_POST['detail'];
     $lokasi = $_POST['lokasi'];
     $tanggal_event = $_POST['tanggal_event'];
+    $tanggal_selese = $_POST['tanggal_selese'];
+    $status_waktu = $_POST['status_waktu'];
     $status = $_POST['status'];
-    $id_kategori = $_POST['id_kategori'];
 
-    // Update the event data in the database
-    $update_query = "UPDATE event 
-                     SET nama='$nama', deskripsi='$deskripsi', lokasi='$lokasi', 
-                         tanggal_event='$tanggal_event', status='$status', id_kategori=$id_kategori 
-                     WHERE id=$event_id";
-    $update_result = mysqli_query($koneksi, $update_query);
+    // Update data event ke database
+    $query = "UPDATE event SET
+              nama = '$nama',
+              deskripsi = '$deskripsi',
+              detail = '$detail',
+              lokasi = '$lokasi',
+              tanggal_event = '$tanggal_event',
+              tanggal_selese = '$tanggal_selese',
+              status_waktu = '$status_waktu',
+              status = '$status'
+              WHERE id = $id";
 
-    // Check if the update was successful
-    if ($update_result) {
-        // Redirect to the event list page or display a success message
-        header("Location: homeEvent.php");
+    if (mysqli_query($koneksi, $query)) {
+        // Jika data berhasil diupdate, cek apakah ada file foto baru diupload
+        if ($_FILES['foto']['name']) {
+            // Hapus foto lama
+            $queryFotoLama = "SELECT foto FROM event WHERE id = $id";
+            $resultFotoLama = mysqli_query($koneksi, $queryFotoLama);
+            $rowFotoLama = mysqli_fetch_assoc($resultFotoLama);
+            $fotoLama = $rowFotoLama['foto'];
+            unlink("../img/$fotoLama");
+
+            // Upload foto baru
+            $fotoBaru = $_FILES['foto']['name'];
+            $tempName = $_FILES['foto']['tmp_name'];
+            move_uploaded_file($tempName, "../img/$fotoBaru");
+
+            // Update nama foto baru ke database
+            $queryUpdateFoto = "UPDATE event SET foto = '$fotoBaru' WHERE id = $id";
+            mysqli_query($koneksi, $queryUpdateFoto);
+        }
+
+        header("Location: homeAdmin.php");
         exit();
     } else {
-        // Handle the case where the update fails (display an error message, log, etc.)
-        $error_message = "Update failed. Please try again.";
+        $error = "Gagal mengupdate data event: " . mysqli_error($koneksi);
     }
 }
 
-// Close the database connection
-mysqli_close($koneksi);
+// Ambil data event yang akan diupdate
+$querySelect = "SELECT * FROM event WHERE id = $id";
+$resultSelect = mysqli_query($koneksi, $querySelect);
+$rowSelect = mysqli_fetch_assoc($resultSelect);
+
 ?>
 
 <!DOCTYPE html>
@@ -88,53 +89,70 @@ mysqli_close($koneksi);
 <body>
     <div class="container mt-5">
         <h2>Edit Event</h2>
-
-        <!-- Display error message if any -->
-        <?php if (isset($error_message)) : ?>
-            <div class="alert alert-danger" role="alert">
-                <?php echo $error_message; ?>
-            </div>
-        <?php endif; ?>
-
-        <form method="post" action="">
+        <form method="POST" enctype="multipart/form-data">
+            <!-- Form fields sesuaikan dengan kolom-kolom tabel event -->
             <div class="form-group">
-                <label for="nama">Nama:</label>
-                <input type="text" class="form-control" id="nama" name="nama" value="<?= $row['nama']; ?>" required>
+                <label for="nama">Nama Event:</label>
+                <input type="text" class="form-control" id="nama" name="nama" value="<?= $rowSelect['nama']; ?>" required>
             </div>
             <div class="form-group">
                 <label for="deskripsi">Deskripsi:</label>
-                <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required><?= $row['deskripsi']; ?></textarea>
+                <textarea class="form-control" id="deskripsi" name="deskripsi" required><?= $rowSelect['deskripsi']; ?></textarea>
             </div>
+            <!-- Tambahkan field-form lain sesuai kebutuhan -->
+            <div class="form-group">
+                <label for="foto">Foto Event:</label>
+                <input type="file" class="form-control-file" id="foto" name="foto">
+            </div>
+            <div class="form-group">
+                <label for="detail">Detail:</label>
+                <textarea class="form-control" id="detail" name="detail" required><?= $rowSelect['detail']; ?></textarea>
+            </div>
+            <!-- Tambahkan field-form lain sesuai kebutuhan -->
             <div class="form-group">
                 <label for="lokasi">Lokasi:</label>
-                <input type="text" class="form-control" id="lokasi" name="lokasi" value="<?= $row['lokasi']; ?>" required>
+                <input type="text" class="form-control" id="lokasi" name="lokasi" value="<?= $rowSelect['lokasi']; ?>" required>
             </div>
+            <!-- Tambahkan field-form lain sesuai kebutuhan -->
             <div class="form-group">
                 <label for="tanggal_event">Tanggal Event:</label>
-                <input type="text" class="form-control" id="tanggal_event" name="tanggal_event" value="<?= $row['tanggal_event']; ?>" required>
+                <input type="date" class="form-control" id="tanggal_event" name="tanggal_event" value="<?= $rowSelect['tanggal_event']; ?>" required>
             </div>
+            <!-- Tambahkan field-form lain sesuai kebutuhan -->
             <div class="form-group">
-                <label for="status">Status</label>
-                <select class="form-control" name="status" required>
-                    <option value="pending">Pending</option>
-                    <option value="accept">Accept</option>
+                <label for="tanggal_selese">Tanggal Selesai:</label>
+                <input type="date" class="form-control" id="tanggal_selese" name="tanggal_selese" value="<?= $rowSelect['tanggal_selese']; ?>" required>
+            </div>
+            <!-- Tambahkan field-form lain sesuai kebutuhan -->
+            <div class="form-group">
+                <label for="status_waktu">Status Waktu:</label>
+                <select class="form-control" id="status_waktu" name="status_waktu" required>
+                    <option value="Upcoming" <?= ($rowSelect['status_waktu'] == 'Upcoming') ? 'selected' : ''; ?>>Upcoming</option>
+                    <option value="Past" <?= ($rowSelect['status_waktu'] == 'Past') ? 'selected' : ''; ?>>Past</option>
                 </select>
             </div>
+            <!-- Tambahkan field-form lain sesuai kebutuhan -->
             <div class="form-group">
-                <label for="id_kategori">Kategori:</label>
-                <select class="form-control" id="id_kategori" name="id_kategori" required>
-                    <?php while ($kategori = mysqli_fetch_assoc($kategori_result)) : ?>
-                        <option value="<?= $kategori['id']; ?>" <?= ($kategori['id'] == $row['id_kategori']) ? 'selected' : ''; ?>>
-                            <?= $kategori['nama_kategori']; ?>
-                        </option>
-                    <?php endwhile; ?>
-                </select>
+                <label for="status">Status:</label>
+                <select class="form-control" id="status" name="status" required>
+                <option value="pending" <?= ($row_wisata['status'] == 'pending') ? 'selected' : ''; ?>>Pending</option>
+                <option value="accept" <?= ($row_wisata['status'] == 'accept') ? 'selected' : ''; ?>>Accept</option></select>
             </div>
-            <!-- Add more form fields as needed -->
-
-            <button type="submit" class="btn btn-primary">Update Event</button>
+            <!-- Tambahkan field-form lain sesuai kebutuhan -->
+            <button type="submit" class="btn btn-primary">Update</button>
+            <a href="homeAdmin.php" class="btn btn-secondary">Batal</a>
         </form>
+        <?php
+        if ($error) {
+            echo '<div class="alert alert-danger mt-3">' . $error . '</div>';
+        }
+        ?>
     </div>
 </body>
 
 </html>
+
+<?php
+// Tutup koneksi setelah selesai menggunakan
+mysqli_close($koneksi);
+?>

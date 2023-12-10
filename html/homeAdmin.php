@@ -46,17 +46,11 @@ $result = mysqli_query($koneksi, $query);
 
     <div class="container mt-5">
         <h2>Data Wisata</h2>
-        <a href="tambah.php" class="btn btn-success mb-3">Tambah Wisata</a>
+        <a href="percobaan2.php" class="btn btn-success mb-3">Tambah Wisata</a>
         <table class="table">
             <thead>
             <tr>
                     <th>Nama</th>
-                    <th>Deskripsi</th>
-                    <th>Harga Tiket</th>
-                    <th>Jam Operasional</th>
-                    <th>Fasilitas</th>
-                    <th>Lokasi</th>
-                    <th>Kategori</th>
                     <th>Foto</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -66,18 +60,12 @@ $result = mysqli_query($koneksi, $query);
                 <?php while ($row = mysqli_fetch_assoc($result)) : ?>
                     <tr>
                         <td><?= $row['nama']; ?></td>
-                        <td><?= $row['deskripsi']; ?></td>
-                        <td><?= $row['harga_tiket']; ?></td>
-                        <td><?= $row['jam_operasional']; ?></td>
-                        <td><?= $row['fasilitas']; ?></td>
-                        <td><?= $row['lokasi']; ?></td>
-                        <td><?= $row['nama_kategori']; ?></td>
                         <td>
-                        <img class="img-fluid" src="../img/<?php echo $row['foto']; ?>" alt="<?= $row['nama']; ?>" style="max-width: 100px; height: auto;">
+                        <img class="img-fluid" src="../img/<?php echo $row['foto1']; ?>" alt="<?= $row['nama']; ?>" style="max-width: 100px; height: auto;">
                         </td>
                         <td><?= $row['status']; ?></td>
                         <td>
-                            <a href="edit.php?id=<?= $row['id']; ?>" class="btn btn-warning">Edit</a>
+                            <a href="edit.php?id=<?= $row['id']; ?>" class="btn btn-warning">Detail</a>
                             <a href="hapus.php?id=<?= $row['id']; ?>" class="btn btn-danger">Hapus</a>
                             <a href="ubah_status.php?id=<?= $row['id']; ?>" class="btn btn-primary">Ubah Status</a>
                         </td>

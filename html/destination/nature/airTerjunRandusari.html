@@ -167,7 +167,7 @@
                                             </svg></div>
                                         Fasilitas
                                     </a>
-                                    <a class="nav-link" href="https://maps.app.goo.gl/er9EjwM1tGm5kdQy6">
+                                    <a class="nav-link" id="menuLokasi" href="">
                                         <div class="sb-nav-link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18"
                                                 height="18" fill="currentColor" class="bi bi-geo-alt-fill"
                                                 viewBox="0 0 16 16">
@@ -282,7 +282,8 @@
                                             sebagai air terjun kembar, yang masih alami dan di bawah pepohonan yang
                                             rindang, dengan udara bersih, nyanyian gemericik air dan disambut kicauan
                                             burung dan nyanyian jangkrik, serta lingkungan alam yang masih hijau dan
-                                            asri sangat memberikan kenyamanan dan kedamaian bagi para pengunjung. <br><br>
+                                            asri sangat memberikan kenyamanan dan kedamaian bagi para pengunjung.
+                                            <br><br>
 
                                             Daya Tarik Air Terjun ini adalah: <br><br>
 
@@ -401,7 +402,8 @@
                                                 </tr>
                                                 <tr>
                                                     <th scope="row">2</th>
-                                                    <td>Gazebo yang bisa dijadikan sebagai tempat bersantai dan beristirahat.</td>
+                                                    <td>Gazebo yang bisa dijadikan sebagai tempat bersantai dan
+                                                        beristirahat.</td>
 
                                                 </tr>
                                                 <tr>
@@ -421,6 +423,16 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                </div>
+                                <div class="card mb-4 mt-2" id="kontenLokasi" ">
+                                    <h1 class=" mt-2 mb-0 ms-3">Lokasi</h1>
+                                    <div class=" card-body">
+                                        <iframe
+                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.7835260981315!2d110.4844506472903!3d-7.917666771813325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5309eb70ebad%3A0x3aa9fd9555a59d0e!2sAir%20Terjun%20Randusari!5e0!3m2!1sen!2sid!4v1701278948298!5m2!1sen!2sid"
+                                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                    </div>
+
                                 </div>
 
                             </div>
@@ -534,6 +546,11 @@
             $('#menuFasilitas').on('click', function (e) {
                 e.preventDefault(); // Menghentikan perilaku default tautan
                 showContent('#kontenFasilitas');
+            });
+
+            $('#menuLokasi').on('click', function (e) {
+                e.preventDefault(); // Menghentikan perilaku default tautan
+                showContent('#kontenLokasi');
             });
 
             // Secara default, tampilkan konten deskripsi

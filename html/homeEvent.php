@@ -55,10 +55,11 @@ $result = mysqli_query($koneksi, $query);
             <thead>
                 <tr>
                     <th>Nama</th>
-                    <th>Deskripsi</th>
                     <th>Kategori</th>
                     <th>Lokasi</th>
                     <th>Tanggal Event</th>
+                    <th>Tanggal Selesai</th>
+                    <th>Status Waktu</th>
                     <th>Foto</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -68,24 +69,27 @@ $result = mysqli_query($koneksi, $query);
                 <?php while ($row = mysqli_fetch_assoc($result)) : ?>
                     <tr>
                         <td><?= $row['nama']; ?></td>
-                        <td><?= $row['deskripsi']; ?></td>
                         <td><?= $row['nama_kategori']; ?></td>
                         <td><?= $row['lokasi']; ?></td>
                         <td><?= $row['tanggal_event']; ?></td>
+                        <td><?= $row['tanggal_selese']; ?></td>
+                        <td><?= $row['status_waktu']; ?></td>
                         <td>
                             <img class="img-fluid" src="../img/<?php echo $row['foto']; ?>" alt="<?= $row['nama']; ?>" style="max-width: 100px; height: auto;">
                         </td>
                         <td><?= $row['status']; ?></td>
                         <td>
-                            <a href="editE.php?id=<?= $row['id']; ?>" class="btn btn-warning">Edit</a>
+                            <a href="percobaan3.php?id=<?= $row['id']; ?>" class="btn btn-warning">Edit</a>
                             <a href="hapusE.php?id=<?= $row['id']; ?>" class="btn btn-danger">Hapus</a>
                             <a href="ubah_statusE.php?id=<?= $row['id']; ?>" class="btn btn-primary">Ubah Status</a>
+                            <a href="ubah_statusW.php?id=<?= $row['id']; ?>" class="btn btn-primary">Ubah Status Waktu</a>
                         </td>
                     </tr>
                 <?php endwhile; ?>
             </tbody>
         </table>
     </div>
+    
 </body>
 
 </html>

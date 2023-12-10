@@ -167,7 +167,7 @@
                                             </svg></div>
                                         Fasilitas
                                     </a>
-                                    <a class="nav-link" href="https://maps.app.goo.gl/mw6EGjR957WKuD2G8">
+                                    <a class="nav-link" id="menuLokasi" href="">
                                         <div class="sb-nav-link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18"
                                                 height="18" fill="currentColor" class="bi bi-geo-alt-fill"
                                                 viewBox="0 0 16 16">
@@ -277,7 +277,8 @@
                                             nama kalian dan pasangan kalian serta membuang kunci ke arah lembah.
                                             <br><br>
 
-                                            <span style="font-weight: bold;">2. Wahana Permainan Outbound seperti Flying Fox dan Treetop.
+                                            <span style="font-weight: bold;">2. Wahana Permainan Outbound seperti Flying
+                                                Fox dan Treetop.
                                                 Cinta</span> <br>
                                             Di tempat wisata ini kalian juga bisa memacu adrenalin kalian dengan mencoba
                                             wahana ekstrim yang menantang. Treetop disini yakni lintasan yang dimana
@@ -286,10 +287,10 @@
                                             lebih 45 derajat hingga 60 derajat, Perlengkapan wahana ini sudah sangat
                                             memadai, sehingga kalian tidak perlu khawatir. Selain itu Prosesnya juga
                                             didampingi oleh instruktur yang terlatih. <br><br>
-                                            
-                                            
+
+
                                             <span style="font-weight: bold;">3. Wisata Alam Susur Gua</span> <br>
-                                    
+
                                             Untuk wisata susur gua sendiri para wisatawan yang ingin mencoba kalian akan
                                             dibawa menyusuri Gunung Gajah. Namun tidak perlu khawatir dikarenakan kalian
                                             bisa menggunakan jasa pemandu yang telah disediakan. Kalian bisa menikmati
@@ -423,12 +424,20 @@
                                                     <td>Jasa Foto</td>
 
                                                 </tr>
-                                                
+
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-
+                                <div class="card mb-4 mt-2" id="kontenLokasi" ">
+                                    <h1 class=" mt-2 mb-0 ms-3">Lokasi</h1>
+                                    <div class=" card-body">
+                                        <iframe
+                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.1198120157983!2d110.10377111111477!3d-7.777118692210099!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7aefb06c226433%3A0x5eb03bf4b057aa1e!2sTebing%20Gunung%20Gajah!5e0!3m2!1sen!2sid!4v1701279630904!5m2!1sen!2sid"
+                                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                    </div>
+                                </div>
                             </div>
                     </div>
                 </div>
@@ -540,6 +549,12 @@
             $('#menuFasilitas').on('click', function (e) {
                 e.preventDefault(); // Menghentikan perilaku default tautan
                 showContent('#kontenFasilitas');
+            });
+
+            // Event listener untuk menu Lokasi
+            $('#menuLokasi').on('click', function (e) {
+                e.preventDefault(); // Menghentikan perilaku default tautan
+                showContent('#kontenLokasi');
             });
 
             // Secara default, tampilkan konten deskripsi

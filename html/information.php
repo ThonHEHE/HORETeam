@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fasilitas = $_POST['fasilitas'];
     $lokasi = $_POST['lokasi'];
     $id_kategori = $_POST['id_kategori'];
-   
+
 
     // Cek apakah file yang diunggah adalah file gambar
     $target_dir = "../img/";  // Direktori penyimpanan file
@@ -57,10 +57,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    $query = "INSERT INTO wisata (nama, deskripsi, harga_tiket, jam_operasional, fasilitas, lokasi, id_kategori, foto) VALUES ('$nama', '$deskripsi', $harga_tiket, '$jam_operasional', '$fasilitas', '$lokasi', $id_kategori, '$foto')";
+    $query = "INSERT INTO wisata (nama, deskripsi, harga_tiket, jam_operasional, fasilitas, lokasi, id_kategori, foto) VALUES ('$nama', '$deskripsi', '$harga_tiket', '$jam_operasional', '$fasilitas', '$lokasi', $id_kategori, '$foto')";
 
     if (mysqli_query($koneksi, $query)) {
-        header('Location: landingPage.html');
+        header('Location: landingPageLogin.php');
         exit();
     } else {
         echo 'Error: ' . mysqli_error($koneksi);
@@ -331,8 +331,23 @@ $result_kategori = mysqli_query($koneksi, $query_kategori);
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="destination.html">Destination</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="btn btn-outline-light" href="login.html">Login</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                        class="bi bi-person-circle text-white" viewBox="0 0 16 16">
+                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                        <path fill-rule="evenodd"
+                                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                                    </svg></a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <!-- <li><a class="dropdown-item" href="#!">Settings</a></li>
+                                            <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider" />
+                                            </li> -->
+                                    <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                                </ul>
                             </li>
                         </ul>
                     </div>
@@ -340,65 +355,68 @@ $result_kategori = mysqli_query($koneksi, $query_kategori);
             </nav>
 
             <div class="content">
-        <div class="row gx-5">
-            <div class="col mt-5 bg-light bg-opacity-10 border border-light-subtle shadow mx-3" style="border-radius: 20px;">
-                <br>
-                <h2>Information Destination Available</h2>
-                <form method="post" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label for="nama" class="form-label">Destination Name</label>
-                        <input type="text" class="form-control" id="nama" name="nama" required>
+                <div class="row gx-5">
+                    <div class="col mt-5 bg-light bg-opacity-10 border border-light-subtle shadow mx-3"
+                        style="border-radius: 20px;">
+                        <br>
+                        <h2>Information Destination Available</h2>
+                        <form method="post" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="nama" class="form-label">Destination Name</label>
+                                <input type="text" class="form-control" id="nama" name="nama" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="id_kategori">Kategori</label>
+                                <select class="form-control" name="id_kategori" required>
+                                    <?php while ($row_kategori = mysqli_fetch_assoc($result_kategori)): ?>
+                                        <option value="<?= $row_kategori['id']; ?>">
+                                            <?= $row_kategori['nama_kategori']; ?>
+                                        </option>
+                                    <?php endwhile; ?>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="harga_tiket" class="form-label">Price Ticket</label>
+                                <input type="text" class="form-control" id="harga_tiket" name="harga_tiket" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="operational" class="form-label">Operational Hour</label>
+                                <input type="operational" class="form-control" id="jam_operasional"
+                                    name="jam_operasional" required>
+                            </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="id_kategori">Kategori</label>
-                        <select class="form-control" name="id_kategori" required>
-                            <?php while ($row_kategori = mysqli_fetch_assoc($result_kategori)): ?>
-                                <option value="<?= $row_kategori['id']; ?>">
-                                    <?= $row_kategori['nama_kategori']; ?>
-                                </option>
-                            <?php endwhile; ?>
-                        </select>
+                    <div class="col mt-5 bg-light bg-opacity-10 border border-light-subtle shadow mx-3"
+                        style="border-radius: 20px;">
+                        <br>
+                        <div class="mb-3">
+                            <label for="name" class="form-label text-white text-start">Location</label>
+                            <input type="text" class="form-control" id="lokasi" name="lokasi" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label text-white text-start">facility</label>
+                            <input type="text" class="form-control" id="fasilitas" name="fasilitas" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Description" class="form-label text-white text-start">Description</label>
+                            <textarea class="form-control" placeholder="" id="deskripsi" name="deskripsi"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label text-white text-start">Input Picture</label>
+                            <input class="form-control" type="file" id="input" name="foto" accept="image/*">
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="harga_tiket" class="form-label">Price Ticket</label>
-                        <input type="text" class="form-control" id="harga_tiket" name="harga_tiket" required>
+                    <div class=" border-light-subtle shadow mx-3" style="border-radius: 20px;">
+                        <br>
+                        <button type="submit" class="btn btn-success">Submit here</button>
                     </div>
-                    <div class="mb-3">
-                        <label for="operational" class="form-label">Operational Hour</label>
-                        <input type="operational" class="form-control" id="jam_operasional" name="jam_operasional" required>
-                    </div>
+                    </form>
                 </div>
-                <div class="col mt-5 bg-light bg-opacity-10 border border-light-subtle shadow mx-3" style="border-radius: 20px;">
-                    <br>
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Location</label>
-                        <input type="text" class="form-control" id="lokasi" name="lokasi" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="name" class="form-label">facility</label>
-                        <input type="text" class="form-control" id="fasilitas" name="fasilitas" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="Description" class="form-label">Description</label>
-                        <textarea class="form-control" placeholder="" id="deskripsi" name="deskripsi"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="formFile" class="form-label">Input Picture</label>
-                        <input class="form-control" type="file" id="input" name="foto" accept="image/*">
-                    </div>
-                </div>
-                <div class=" border-light-subtle shadow mx-3" style="border-radius: 20px;">
-                    <br>
-                    <button type="submit" class="btn btn-success">Submit here</button>
-                </div>
-                </form>
             </div>
         </div>
-    </div>
 
 
 
-            <!-- <main>
+        <!-- <main>
         <div class="video">
             <audio autoplay="" loop="">
                 <source src="vid-jogja.mp3" type="audio/mp3">
@@ -424,106 +442,105 @@ $result_kategori = mysqli_query($koneksi, $query_kategori);
     </main> -->
 
 
-            <footer class="footer py-2 text-center text-body-secondary bg-transparent"
-                style="background-color: rgba(217, 217, 217, 0.5);">
-                <p class="text-white">Copyright © Explore destination in Yogyakarta</p>
-                <!-- <p class="mb-0">
+        <footer class="footer py-2 text-center text-body-secondary bg-transparent"
+            style="background-color: rgba(217, 217, 217, 0.5);">
+            <p class="text-white">Copyright © Explore destination in Yogyakarta</p>
+            <!-- <p class="mb-0">
             <a href="#">Back to top</a>
         </p> -->
-            </footer>
+        </footer>
 
 
 
 
 
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-                crossorigin="anonymous">
-                </script>
-
-            <script>
-                window.addEventListener('scroll', function () {
-                    var navbar = document.querySelector('.navbar');
-                    var footer = document.querySelector('.footer');
-
-                    var top = window.scrollY;
-                    var totalHeight = document.body.scrollHeight - window.innerHeight;
-                    var scrollPercentage = (top / totalHeight) * 100;
-
-                    if (scrollPercentage < 10) {
-                        navbar.style.backgroundColor = 'rgba(217, 217, 217, 1)';
-                        footer.style.backgroundColor = 'rgba(217, 217, 217, 0.5)';
-                    } else if (scrollPercentage > 90) {
-                        navbar.style.backgroundColor = 'rgba(217, 217, 217, 0.5)';
-                        footer.style.backgroundColor = 'rgba(217, 217, 217, 1)';
-                    }
-                });
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
             </script>
 
-            <script>
-                var slideImg = document.getElementById("slideImg");
+        <script>
+            window.addEventListener('scroll', function () {
+                var navbar = document.querySelector('.navbar');
+                var footer = document.querySelector('.footer');
 
-                var images = new Array(
-                    "../img/background/slide1.JPEG",
-                    "../img/background/slide2.JPEG",
-                    "../img/background/slide3.JPEG",
-                    "../img/background/slide4.PNG"
-                );
+                var top = window.scrollY;
+                var totalHeight = document.body.scrollHeight - window.innerHeight;
+                var scrollPercentage = (top / totalHeight) * 100;
 
-                var len = images.length;
-                var i = 0;
-
-                function slider() {
-                    if (i > len - 1) {
-                        i = 0;
-                    }
-                    slideImg.src = images[i];
-                    i++;
-                    setTimeout('slider()', 3000);
+                if (scrollPercentage < 10) {
+                    navbar.style.backgroundColor = 'rgba(217, 217, 217, 1)';
+                    footer.style.backgroundColor = 'rgba(217, 217, 217, 0.5)';
+                } else if (scrollPercentage > 90) {
+                    navbar.style.backgroundColor = 'rgba(217, 217, 217, 0.5)';
+                    footer.style.backgroundColor = 'rgba(217, 217, 217, 1)';
                 }
-            </script>
+            });
+        </script>
+
+        <script>
+            var slideImg = document.getElementById("slideImg");
+
+            var images = new Array(
+                "../img/background/slide1.JPEG",
+                "../img/background/slide2.JPEG",
+                "../img/background/slide3.JPEG",
+                "../img/background/slide4.PNG"
+            );
+
+            var len = images.length;
+            var i = 0;
+
+            function slider() {
+                if (i > len - 1) {
+                    i = 0;
+                }
+                slideImg.src = images[i];
+                i++;
+                setTimeout('slider()', 3000);
+            }
+        </script>
 
 
-            <!-- Code injected by live-server -->
-            <script>
-                // <![CDATA[  <-- For SVG support
-                if ('WebSocket' in window) {
-                    (function () {
-                        function refreshCSS() {
-                            var sheets = [].slice.call(document.getElementsByTagName("link"));
-                            var head = document.getElementsByTagName("head")[0];
-                            for (var i = 0; i < sheets.length; ++i) {
-                                var elem = sheets[i];
-                                var parent = elem.parentElement || head;
-                                parent.removeChild(elem);
-                                var rel = elem.rel;
-                                if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() ==
-                                    "stylesheet") {
-                                    var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-                                    elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (
-                                        new Date()
-                                            .valueOf());
-                                }
-                                parent.appendChild(elem);
+        <!-- Code injected by live-server -->
+        <script>
+            // <![CDATA[  <-- For SVG support
+            if ('WebSocket' in window) {
+                (function () {
+                    function refreshCSS() {
+                        var sheets = [].slice.call(document.getElementsByTagName("link"));
+                        var head = document.getElementsByTagName("head")[0];
+                        for (var i = 0; i < sheets.length; ++i) {
+                            var elem = sheets[i];
+                            var parent = elem.parentElement || head;
+                            parent.removeChild(elem);
+                            var rel = elem.rel;
+                            if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() ==
+                                "stylesheet") {
+                                var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+                                elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (
+                                    new Date()
+                                        .valueOf());
                             }
+                            parent.appendChild(elem);
                         }
-                        var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-                        var address = protocol + window.location.host + window.location.pathname + '/ws';
-                        var socket = new WebSocket(address);
-                        socket.onmessage = function (msg) {
-                            if (msg.data == 'reload') window.location.reload();
-                            else if (msg.data == 'refreshcss') refreshCSS();
-                        };
-                        if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-                            console.log('Live reload enabled.');
-                            sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-                        }
-                    })();
-                } else {
-                    console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-                }
-                // ]]>
-            </script>
+                    }
+                    var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+                    var address = protocol + window.location.host + window.location.pathname + '/ws';
+                    var socket = new WebSocket(address);
+                    socket.onmessage = function (msg) {
+                        if (msg.data == 'reload') window.location.reload();
+                        else if (msg.data == 'refreshcss') refreshCSS();
+                    };
+                    if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+                        console.log('Live reload enabled.');
+                        sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+                    }
+                })();
+            } else {
+                console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+            }
+            // ]]>
+        </script>
 
 
 </body>
